@@ -4,7 +4,8 @@
   "description": "ES6, SCSS, LiveReload",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack --env.production",
+    "dev": "webpack-dev-server --progress --colors --env.development"
   },
   "author": "Armon Raphiel",
   "license": "MIT",
