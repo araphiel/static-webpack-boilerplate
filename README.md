@@ -2,8 +2,8 @@
 
 A modern Webpack 4 boilerplate with Bootstrap 4, SCSS and ES6/Babel. 
 
-`npm start` - Builds the compiled files.
+`npm start` - Builds the production files.
 
-`npm run dev` -  Builds a local livereload instance
+`npm run dev` -  Starts a dev instance with livereload.
 
-`npm run eslint-fix` - Fix your JS (AirBnB)
+`npm run eslint-fix` - Lint your JS
