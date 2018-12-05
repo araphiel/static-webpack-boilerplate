@@ -1,3 +1,4 @@
+/* eslint-disable */
 // A place for helper functions
 
 /**
@@ -6,9 +7,8 @@
  * @param {string} classname - Expects a classname (i.e. .foobar)
 */
 
-const bodyClass = classname => {
-    if (document.body.classList.contains(classname))
-        return true
-}
+const bodyClass = (classname) => {
+  if (document.body.classList.contains(classname)) return true;
+};
 
 export { bodyClass };
