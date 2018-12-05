@@ -67,13 +67,10 @@ module.exports = (env, argv) => {
                     exclude: /(node_modules|bower_components)/,
                     use: [
                         {
-                        loader: 'babel-loader',
-                        options: { presets: ['@babel/preset-env'] }
+                            loader: 'babel-loader',
+                            options: { presets: ['@babel/preset-env'] }
                         },
-                        {
-                            loader: 'eslint-loader',
-                            options: { eslintPath: path.resolve(__dirname, 'lib') }
-                        }
+                        'eslint-loader',
                     ]
                 },
             ]
@@ -91,7 +88,7 @@ module.exports = (env, argv) => {
                 filename: "[name].css",
             }),
 
-            new CleanWebpackPlugin('assets/dist', {
+            new CleanWebpackPlugin('dist', {
                 beforeEmit: true
             }),
 
@@ -117,10 +114,11 @@ module.exports = (env, argv) => {
         },
         
         devServer: {
-            publicPath: '/assets/dist/',
+            publicPath: '/dist/',
             port: 9000,
             // proxy: { '/': 'sample.dev' }, // If using wordpress, replace the sample.dev with your local address
-            // watchContentBase: true,
+            contentBase: path.join(__dirname),
+            watchContentBase: true,
             inline: true,
             open: true,
             overlay: true,
