@@ -55,7 +55,7 @@ module.exports = (env, argv) => {
                             }
                         },
                         
-                        (production ? sassLoader : 'fast-sass-loader')
+                        production ? sassLoader : 'fast-sass-loader'
                     ]
                 },
                 {
@@ -65,19 +65,25 @@ module.exports = (env, argv) => {
                 {
                     test: /\.m?js$/,
                     exclude: /(node_modules|bower_components)/,
-                    use: {
+                    use: [
+                        {
                         loader: 'babel-loader',
-                        options: {
-                            presets: ['@babel/preset-env']
+                        options: { presets: ['@babel/preset-env'] }
+                        },
+                        {
+                            loader: 'eslint-loader',
+                            options: { eslintPath: path.resolve(__dirname, 'lib') }
                         }
-                    }
+                    ]
                 },
             ]
         },
-
+        
         resolve: {
             extensions: ['.js'],
-            alias: { 'jquery': 'jquery/dist/jquery.min.js' }
+            alias: { 
+                'jquery': 'jquery/dist/jquery.min.js' // Allows you to use $ in webpack without importing it. Remove if unneeded.
+            }
         },
         
         plugins: [
@@ -113,8 +119,8 @@ module.exports = (env, argv) => {
         devServer: {
             publicPath: '/assets/dist/',
             port: 9000,
-            contentBase: '_site',
-            watchContentBase: true,
+            // proxy: { '/': 'sample.dev' }, // If using wordpress, replace the sample.dev with your local address
+            // watchContentBase: true,
             inline: true,
             open: true,
             overlay: true,
