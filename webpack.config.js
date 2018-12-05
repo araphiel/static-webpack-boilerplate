@@ -50,7 +50,7 @@ module.exports = (env, argv) => {
                             loader: 'postcss-loader',
                             options: {
                                 config: {
-                                    path: path.resolve(__dirname, 'build/postcss.config.js')
+                                    path: path.resolve(__dirname, 'lib/postcss.config.js')
                                 },
                             }
                         },
