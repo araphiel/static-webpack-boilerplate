@@ -1,8 +1,9 @@
-const path = require('path');
+const { resolve, path } = require('path'); 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = (env, argv) => {
@@ -19,14 +20,13 @@ module.exports = (env, argv) => {
         mode: production ? 'production' : 'development',
 
         entry: [
-            path.resolve(__dirname, 'assets', 'scripts', 'main.js'),
-            path.resolve(__dirname, 'assets', 'scss', 'main.scss'),
+            resolve(__dirname, 'assets', 'scripts', 'main.js'),
+            resolve(__dirname, 'assets', 'scss', 'main.scss'),
         ],
 
         output: {
             filename: '[name].js',
-            path: path.resolve(__dirname, 'dist'),
-            publicPath: '/dist/'
+            path: resolve('dist'),
         },
         
         module: {
@@ -50,7 +50,7 @@ module.exports = (env, argv) => {
                             loader: 'postcss-loader',
                             options: {
                                 config: {
-                                    path: path.resolve(__dirname, 'lib/postcss.config.js')
+                                    path: resolve(__dirname, 'lib/postcss.config.js')
                                 },
                             }
                         },
@@ -84,8 +84,12 @@ module.exports = (env, argv) => {
         },
         
         plugins: [
+            new HtmlWebpackPlugin({
+                template: './template.html',
+                hash: true
+            }),
             new MiniCssExtractPlugin({
-                filename: "[name].css",
+                filename: "[name].[hash].css",
             }),
 
             new CleanWebpackPlugin('dist', {
@@ -114,16 +118,13 @@ module.exports = (env, argv) => {
         },
         
         devServer: {
-            publicPath: '/dist/',
             port: 9000,
-            // proxy: { '/': 'sample.dev' }, // If using wordpress, replace the sample.dev with your local address
-            contentBase: path.join(__dirname),
-            watchContentBase: true,
             inline: true,
             open: true,
             overlay: true,
             historyApiFallback: true,
             quiet: true,
+            openPage: 'dist'
         },
 
         watchOptions: {
