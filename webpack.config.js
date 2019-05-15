@@ -92,8 +92,8 @@ module.exports = (env, argv) => {
                 filename: "[name].[hash].css",
             }),
 
-            new CleanWebpackPlugin('dist', {
-                beforeEmit: true
+            new CleanWebpackPlugin({
+                cleanOnceBeforeBuildPatterns: '**/*'
             }),
 
             new FriendlyErrorsWebpackPlugin(),
